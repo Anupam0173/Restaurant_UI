@@ -21,5 +21,10 @@ export class RestaurantServiceService {
     return this.http.post('http://127.0.0.1:3003/restaurant',newRestaurant,{headers:this.headers});
   }
 
+  addProduct(newProduct:any,id:any)
+  {
+    console.log('http://127.0.0.1:3003/product/'+id,newProduct,"service is called",id);
+    return this.http.post('http://127.0.0.1:3003/product/'+id,newProduct,{headers:this.headers});
+  }
 
 }

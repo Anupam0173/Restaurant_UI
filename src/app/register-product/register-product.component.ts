@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Params } from '@angular/router';
+import { RestaurantServiceService } from '../restaurant-service.service';
 
 @Component({
   selector: 'app-register-product',
@@ -8,9 +9,7 @@ import { ActivatedRoute, Params } from '@angular/router';
 })
 export class RegisterProductComponent implements OnInit {
   r_id:any;
-  constructor(private router:ActivatedRoute) { 
-    // id:router.snapshot.data;
-    // console.log("in register ts file",this.id)
+  constructor(private restaurantService:RestaurantServiceService,private router:ActivatedRoute) { 
 
   }
 
@@ -20,12 +19,59 @@ export class RegisterProductComponent implements OnInit {
     {
       this.r_id=params['id'];
       console.log("in register ts file---->",this.r_id);
-      
-    }
-  )
+    })
   }
 
   
+  products=[];
+  registration_status=false;
+  registration_message:any;
+  image: any;
 
+  selectImage(event:any)
+  {
+    if(event.target.files.length>0)
+    {
+      const file=event.target.file;
+      this.image=file;
+    }
+  }
+  addProduct(form:any)
+  {
+    console.log("add restaurant method is executed.........");
+    const newProduct=
+    {
+      name:form.product_name,
+      price:Number(form.product_price),
+      category:form.product_category,
+      // image:form.restaurant_image
+    }
+    try
+    {
+    
+      this.restaurantService.addProduct(newProduct,this.r_id)
+    .subscribe(
+      resp=>{
+       if(resp)
+       {
+         this.registration_status=true;
+         let dataJson = JSON.parse(JSON.stringify(resp))
+
+
+         this.registration_message=dataJson.msg;
+         console.log("data saved successfully",resp);
+       }else
+       {
+         console.log("data not saved",resp);
+       }
+
+      }
+    );  
+  }
+    catch(e)
+    {
+      console.log("there is an error");
+    }
+  }
 
 }
