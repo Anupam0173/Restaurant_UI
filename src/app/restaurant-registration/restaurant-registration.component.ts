@@ -33,7 +33,7 @@ export class RestaurantRegistrationComponent implements OnInit {
     const newRestaurant=
     {
       name:form.restaurant_name,
-      opening_hours:form.restaurant_opening_hours,
+      opening_hours:"form "+form.restaurant_opening_hours+"to "+form.restaurant_closing_hours,
       address:form.restaurant_address+", "+form.restaurant_city+", "+this.restaurant_state+", "+form.restaurant_zipcode,
       // image:form.restaurant_image
     }

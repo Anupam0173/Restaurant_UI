@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { RestaurantRegistrationComponent } from './restaurant-registration/restaurant-registration.component';
@@ -14,6 +14,7 @@ import { RestaurantHomeComponent } from './restaurant-home/restaurant-home.compo
     AppComponent,
     RestaurantRegistrationComponent,
     RegisterRestaurantComponent,
+  
     RegisterProductComponent,
     RestaurantHomeComponent
   ],
@@ -21,6 +22,7 @@ import { RestaurantHomeComponent } from './restaurant-home/restaurant-home.compo
     BrowserModule,
     AppRoutingModule,
     FormsModule,
+    ReactiveFormsModule,
     HttpClientModule
   ],
   providers: [],

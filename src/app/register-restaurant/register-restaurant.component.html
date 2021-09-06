@@ -5,10 +5,8 @@
 
           
           <div class="row">
-            <div class="col-2">
-              
-            </div>
-            <div class="col-8">
+           
+            <div class="col-8 offset-2">
 
                 <div class="alert alert-warning alert-dismissible fade show" *ngIf='registration_status' role="alert">
                     <strong>{{registration_message}}!</strong> 
@@ -23,10 +21,15 @@
                         <label for="Restaurant_name">Restaurant Name</label>
                         <input type="text" name="restaurant_name" class="form-control" id="Restaurant_name" placeholder="Enter Restaurant Name" ngModel required>
                       </div>
-                  
-                    <div class="form-group col-12">
-                      <label for="inputAddress">Opening hours</label>
-                      <input type="text" name="restaurant_opening_hours" class="form-control" id="inputAddress" placeholder="Enter Opening hours" ngModel required>
+                    <div class="form-row">
+                      <div class="form-group col-6">
+                        <label for="inputAddress">Opening hours</label>
+                        <input type="text" name="restaurant_opening_hours" class="form-control" id="inputAddress" placeholder="Enter Opening hours" ngModel required>
+                      </div>
+                      <div class="form-group col-6">
+                        <label for="inputAddress">Closing hours</label>
+                        <input type="text" name="restaurant_closing_hours" class="form-control" id="inputAddress" placeholder="Enter Closing hours" ngModel required>
+                      </div>
                     </div>
                     <div class="form-group col-12">
                       <label for="inputAddress2">Address</label>
@@ -66,9 +69,7 @@
                     </div>
                   </form>
             </div>
-            <div class="col-2">
-              
-            </div>
+          
           </div>
           
         </div>
