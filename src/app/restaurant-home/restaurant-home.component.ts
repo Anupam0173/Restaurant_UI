@@ -42,7 +42,7 @@ add_products(restaurant_id:any)
 {
  console.log("--------------->",restaurant_id);
  
-//  this.router.navigate(['/add_product',{'id':JSON.stringify(restaurant_id)}]);
+ this.router.navigate(['/add_product/'+restaurant_id]);
  
 }
 
