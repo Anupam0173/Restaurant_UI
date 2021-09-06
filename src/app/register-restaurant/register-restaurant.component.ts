@@ -11,10 +11,19 @@ export class RegisterRestaurantComponent implements OnInit {
   registration_status=false;
   registration_message:any;
   restaurant_state="";
-  states=["Madhya Pradesh","pune","Banglore","uttar Pradesh","Andra pradesh","Delhi","Goa"];
+  states:string[]=[];
   image: any;
 
-  constructor(private restaurantService:RestaurantServiceService) { }
+  constructor(private restaurantService:RestaurantServiceService) {
+    this.restaurantService.get_states().subscribe(
+      (covid_data:any)=>{
+        let i=0;
+        for (i=1;i<covid_data.statewise.length;i++) 
+        { 
+          this.states.push(covid_data.statewise[i].state);
+        }
+      })
+   }
 
   ngOnInit(): void {
   }
@@ -28,7 +37,8 @@ export class RegisterRestaurantComponent implements OnInit {
   }
   addRestaurant(form:any)
   {
-    console.log("add restaurant method is executed.........");
+   
+
     const newRestaurant=
     {
       name:form.restaurant_name,

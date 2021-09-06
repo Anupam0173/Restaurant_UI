@@ -13,7 +13,12 @@ export class RestaurantServiceService {
   {
     return this.http.get('http://127.0.0.1:3003/restaurant');
   }
-
+  
+  get_states()
+  {
+    return this.http.get('https://data.covid19india.org/data.json');
+  }
+  
   getProducts(id:any)
   {
     return this.http.get('http://127.0.0.1:3003/restaurant/'+id);

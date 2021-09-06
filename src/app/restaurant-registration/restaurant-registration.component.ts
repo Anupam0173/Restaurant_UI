@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { any } from 'sequelize/types/lib/operators';
+import { RestaurantHomeComponent } from '../restaurant-home/restaurant-home.component';
 
 import {RestaurantServiceService} from '../restaurant-service.service';
 @Component({
@@ -12,7 +13,8 @@ export class RestaurantRegistrationComponent implements OnInit {
   registration_status=false;
   registration_message:any;
   restaurant_state="";
-  states=["Madhya Pradesh","pune","Banglore","uttar Pradesh","Andra pradesh","Delhi","Goa"];
+  // states=["Madhya Pradesh","pune","Banglore","uttar Pradesh","Andra pradesh","Delhi","Goa"];
+  states:any;
   image: any;
 
   constructor(private restaurantService:RestaurantServiceService) { }
@@ -27,6 +29,11 @@ export class RestaurantRegistrationComponent implements OnInit {
       this.image=file;
     }
   }
+
+  
+  
+
+  
   addRestaurant(form:any)
   {
     console.log("add restaurant method is executed.........");
@@ -39,6 +46,8 @@ export class RestaurantRegistrationComponent implements OnInit {
     }
     try
     {
+
+   
     
       this.restaurantService.addRestaurant(newRestaurant)
     .subscribe(
