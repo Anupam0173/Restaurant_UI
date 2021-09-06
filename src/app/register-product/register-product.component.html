@@ -1,44 +1,104 @@
-<div class="container mt-5 ">
-    <div class="jumbotron jumbotron-fluid rounded ">
-        <div class="container">
-          <h1 class="display-4 text-center">Register Product</h1>
-
-          
-          <div class="row">
+<div class="row m-5">
+    <div class="col">
+        <div class="text-center mt-5">
+            <button type="button" (click)="display_products()" class="btn btn-primary">
+                {{dispaly_productBTN_text}}
+              </button>
+        </div>
         
-            <div class="col-8 offset-2">
+        
+        
+        <div class="container mt-5" *ngIf="show_products">
+            <table class="table table-hover table-striped">
+              <thead>
+                <tr class="text-primary text-center font-weight-bold">
+                  <th scope="col">S.NO</th>
+                  <th scope="col">Product Name</th>
+                  <th scope="col">Product Price</th>
+                  <th scope="col">Product category</th>
+                  <th scope="col">Restaurant Image</th>
+                </tr>
+              </thead>
+              <tbody>
+                <!-- <tr *ngFor="let product of prods; let i = index">
+                    <th scope="row">{{i+1}}</th>
+                    <td> {{product[i].name}}</td>
+                    <td>{{product[i].price}}</td>
+                    <td> {{product[i].category}}</td>
+                    <td >Restaurant Image</td>
+                  </tr> -->
+                <tr *ngFor="let product of register_products; let i = index">
+                  <th scope="row">{{i+1}}</th>
+                  <td> {{product.products[i].name}}</td>
+                  <td>{{product.products[i].price}}</td>
+                  <td> {{product.products[i].category}}</td>
+                  <td >Restaurant Image</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>    
+    </div>
 
-                <div class="alert alert-warning alert-dismissible fade show" *ngIf='registration_status' role="alert">
-                    <strong>{{registration_message}}!</strong> 
-                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                      <span aria-hidden="true">&times;</span>
-                    </button>
-                  </div>
 
-                <form enctype="multipart/form-data" #registrationdata='ngForm' (ngSubmit)="addProduct(registrationdata.value)">
-                    <div class="form-row">
-                      <div class="form-group col-12">
-                        <label for="product_name">Product Name</label>
-                        <input type="text" name="product_name" class="form-control" id="Restaurant_name" placeholder="Enter Product Name" ngModel required>
-                      </div>
+
+    <div class="col">
+
+
+        <div class="text-center mt-5">
+            <button type="button" (click)="display_prod_registration()" class="btn btn-primary">
+                {{prod_registrationBTN_text}}
+              </button>
+        </div>
+        
+        <div class="container mt-5" *ngIf="show_prod_reg">
+            <div class="jumbotron jumbotron-fluid rounded ">
+                <div class="container">
+                  <h1 class="display-4 text-center">Register Product</h1>
+        
                   
-                    <div class="form-group col-12">
-                      <label for="inputAddress">Product Price</label>
-                      <input type="text" name="product_price" class="form-control" id="inputAddress" placeholder="Enter Product Price" ngModel required>
-                    </div>
-                    
-                    <div class="form-group col-12">
-                      <label for="inputAddress2">Product category</label>
-                      <input type="text" name="product_category" class="form-control" id="inputAddress2" placeholder="Apartment, studio, or floor" ngModel required>
-                    </div>
-                    
-                    <button type="submit" [disabled]="registrationdata.form.invalid" class="btn btn-primary">Register</button>
-                    </div>
-                  </form>
-            </div>
+                  <div class="row">
+                
+                    <div class="col-8 offset-2">
         
-          </div>
-          
+                        <div class="alert alert-warning alert-dismissible fade show" *ngIf='registration_status' role="alert">
+                            <strong>{{registration_message}}!</strong> 
+                            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                              <span aria-hidden="true">&times;</span>
+                            </button>
+                          </div>
+        
+                        <form enctype="multipart/form-data" #registrationdata='ngForm' (ngSubmit)="addProduct(registrationdata.value)">
+                            <div class="form-row">
+                              <div class="form-group col-12">
+                                <label for="product_name">Product Name</label>
+                                <input type="text" name="product_name" class="form-control" id="Restaurant_name" placeholder="Enter Product Name" ngModel required>
+                              </div>
+                          
+                            <div class="form-group col-12">
+                              <label for="inputAddress">Product Price</label>
+                              <input type="text" name="product_price" class="form-control" id="inputAddress" placeholder="Enter Product Price" ngModel required>
+                            </div>
+        
+                            <div class="form-group col-12">
+                              <label for="inputAddress2">Product category</label>
+                              <input type="text" name="product_category" class="form-control" id="inputAddress2" placeholder="Apartment, studio, or floor" ngModel required>
+                            </div>
+                            
+                            <button type="submit" [disabled]="registrationdata.form.invalid" class="btn btn-primary">Register</button>
+                            </div>
+                          </form>
+                    </div>
+                
+                  </div>
+                  
+                </div>
+            </div>
         </div>
     </div>
 </div>
+
+
+
+
+
+

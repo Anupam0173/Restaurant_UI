@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Params } from '@angular/router';
+import { any } from 'sequelize/types/lib/operators';
 import { RestaurantServiceService } from '../restaurant-service.service';
 
 @Component({
@@ -9,36 +10,34 @@ import { RestaurantServiceService } from '../restaurant-service.service';
 })
 export class RegisterProductComponent implements OnInit {
   r_id:any;
-  constructor(private restaurantService:RestaurantServiceService,private router:ActivatedRoute) { 
-
-  }
-
+  constructor(private restaurantService:RestaurantServiceService,private router:ActivatedRoute) { }
   ngOnInit(): void {
   this.router.params.subscribe(
     (params:Params)=>
     {
       this.r_id=params['id'];
-      console.log("in register ts file---->",this.r_id);
     })
   }
 
-  
   products=[];
   registration_status=false;
-  registration_message:any;
+ 
   image: any;
-
-  selectImage(event:any)
+ 
+  
+  //code related to registration of products
+  registration_message:any;
+  prod_registrationBTN_text="Show products registration form";
+  show_prod_reg=true;
+  display_prod_registration()
   {
-    if(event.target.files.length>0)
-    {
-      const file=event.target.file;
-      this.image=file;
-    }
+    this.show_prod_reg=!this.show_prod_reg;
+    this.prod_registrationBTN_text=!this.show_prod_reg?"Show products registration form":"Hide registration form";
   }
+
+  //on click of show registraion btn form
   addProduct(form:any)
   {
-    console.log("add restaurant method is executed.........");
     const newProduct=
     {
       name:form.product_name,
@@ -74,4 +73,66 @@ export class RegisterProductComponent implements OnInit {
     }
   }
 
+
+
+  // this.show_prod_reg=!this.show_prod_reg;
+  // this.prod_registrationBTN_text=!this.show_prod_reg?"Show products registration form":"Hide products registration form";
+  // this.show_products
+//logic for show products of restaurants
+  show_products=true;
+  dispaly_productBTN_text="View registered products"
+  register_products:any;
+    
+  r_prods:any
+  display_products()
+  {
+    this.show_products=!this.show_products;
+    this.dispaly_productBTN_text=!this.show_products?"view Registered Products":"hide list"
+ 
+  try {
+    this.restaurantService.getProducts(this.r_id)
+    .subscribe(
+      products=>{
+       if(products)
+       {
+        this.register_products=products;
+        // this.register_products=products.products;
+        // prods=this.register_products.products;
+        // for product in 
+        console.log("----------------------------",this.register_products.name);
+        // for (var product of this.r_prods) {
+        //   console.log(product)
+    
+        // }
+        console.log("------------------------",this.register_products.products);
+    
+       }else
+       {
+         console.log("data not saved",products);
+       }
+
+      }
+    );  
+
+
+  } catch (error) {
+    console.log("there is an error");
+  }
 }
+
+
+}
+
+
+
+
+
+  // selectImage(event:any)
+  // {
+  //   if(event.target.files.length>0)
+  //   {
+  //     const file=event.target.file;
+  //     this.image=file;
+  //   }
+  // }
+ 
