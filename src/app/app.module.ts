@@ -3,15 +3,19 @@ import { BrowserModule } from '@angular/platform-browser';
 import { FormsModule } from '@angular/forms';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { HomeComponent } from './home/home.component';
 import { RestaurantRegistrationComponent } from './restaurant-registration/restaurant-registration.component';
 import { HttpClientModule } from '@angular/common/http';
+import { RegisterRestaurantComponent } from './register-restaurant/register-restaurant.component';
+import { RegisterProductComponent } from './register-product/register-product.component';
+import { RestaurantHomeComponent } from './restaurant-home/restaurant-home.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    HomeComponent,
-    RestaurantRegistrationComponent
+    RestaurantRegistrationComponent,
+    RegisterRestaurantComponent,
+    RegisterProductComponent,
+    RestaurantHomeComponent
   ],
   imports: [
     BrowserModule,

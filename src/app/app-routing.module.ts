@@ -1,14 +1,17 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { AppComponent } from './app.component';
-import { HomeComponent } from './home/home.component';
+import { RegisterProductComponent } from './register-product/register-product.component';
+import { RegisterRestaurantComponent } from './register-restaurant/register-restaurant.component';
+import { RestaurantHomeComponent } from './restaurant-home/restaurant-home.component';
+
 
 import { RestaurantRegistrationComponent } from './restaurant-registration/restaurant-registration.component';
 
 const routes: Routes = [
-  { path:'',component:HomeComponent},
-  { path:'restaurant',component:RestaurantRegistrationComponent},
-  // { path:'add_product/:id',component:ProductRegistrationComponent},
+  { path:'',component:RestaurantHomeComponent},
+  { path:'restaurant',component:RegisterRestaurantComponent},
+  { path:'add_product/:id',component:RegisterProductComponent},
 ];
 
 @NgModule({

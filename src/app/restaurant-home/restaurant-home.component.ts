@@ -1,13 +1,14 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { RestaurantServiceService } from '../restaurant-service.service';
-import { Router, ActivatedRoute, ParamMap } from '@angular/router';
-import { Json } from 'sequelize/types/lib/utils';
+
 @Component({
-  selector: 'app-home',
-  templateUrl: './home.component.html',
-  styleUrls: ['./home.component.css']
+  selector: 'app-restaurant-home',
+  templateUrl: './restaurant-home.component.html',
+  styleUrls: ['./restaurant-home.component.css']
 })
-export class HomeComponent implements OnInit {
+export class RestaurantHomeComponent implements OnInit {
+
   show_restaurant=false;
   register_restaurants:any;
   constructor(private restaurantService:RestaurantServiceService,private router:Router) { }
@@ -44,4 +45,5 @@ add_products(restaurant_id:any)
 //  this.router.navigate(['/add_product',{'id':JSON.stringify(restaurant_id)}]);
  
 }
+
 }
