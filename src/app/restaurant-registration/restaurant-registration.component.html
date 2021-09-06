@@ -1,0 +1,76 @@
+<div class="container mt-5 ">
+    <div class="jumbotron jumbotron-fluid rounded ">
+        <div class="container">
+          <h1 class="display-4 text-center">Register Restaurant</h1>
+
+          
+          <div class="row">
+            <div class="col-2">
+              
+            </div>
+            <div class="col-8">
+
+                <div class="alert alert-warning alert-dismissible fade show" *ngIf='registration_status' role="alert">
+                    <strong>{{registration_message}}!</strong> 
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                      <span aria-hidden="true">&times;</span>
+                    </button>
+                  </div>
+
+                <form enctype="multipart/form-data" #registrationdata='ngForm' (ngSubmit)="addRestaurant(registrationdata.value)">
+                    <div class="form-row">
+                      <div class="form-group col-12">
+                        <label for="Restaurant_name">Restaurant Name</label>
+                        <input type="text" name="restaurant_name" class="form-control" id="Restaurant_name" placeholder="Enter Restaurant Name" ngModel required>
+                      </div>
+                  
+                    <div class="form-group col-12">
+                      <label for="inputAddress">Opening hours</label>
+                      <input type="text" name="restaurant_opening_hours" class="form-control" id="inputAddress" placeholder="Enter Opening hours" ngModel required>
+                    </div>
+                    <div class="form-group col-12">
+                      <label for="inputAddress2">Address</label>
+                      <input type="text" name="restaurant_address" class="form-control" id="inputAddress2" placeholder="Apartment, studio, or floor" ngModel required>
+                    </div>
+                    <div class="form-row">
+                      <div class="form-group col-4">
+                        <label for="inputCity">City</label>
+                        <input type="text" class="form-control" name="restaurant_city" id="inputCity" ngModel required>
+                      </div>
+                      <div class="form-group col-4">
+                        <label for="inputState">State</label>
+                        <!-- <select id="inputState"  [(ngModel)]="restaurant_state" required"> 
+                         
+                        </select> -->
+                        <select [(ngModel)]="restaurant_state" name="restaurant_state" class="form-control" required>
+                            <option *ngFor="let state of states" [ngValue]="state">{{state}}</option>
+                        </select>
+                      </div>
+                      <div class="form-group col-4">
+                        <label for="inputZip">Zip</label>
+                        <input type="text"  class="form-control" id="inputZip" name="restaurant_zipcode" ngModel required>
+                      </div>
+                    </div>
+                    
+                    <div class="input-group mb-3">
+                      <div class="input-group-prepend">
+                        <span class="input-group-text">Upload</span>
+                      </div>
+                      <div class="custom-file">
+                        <input type="file" name="restaurant_image" class="custom-file-input" id="inputGroupFile01" (change)="selectImage($event)">
+                        <label class="custom-file-label" for="inputGroupFile01" >Choose file</label>
+                      </div>
+                    </div>
+                    
+                    <button type="submit" [disabled]="registrationdata.form.invalid" class="btn btn-primary">Register</button>
+                    </div>
+                  </form>
+            </div>
+            <div class="col-2">
+              
+            </div>
+          </div>
+          
+        </div>
+    </div>
+</div>
