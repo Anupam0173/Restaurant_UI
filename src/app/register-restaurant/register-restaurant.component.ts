@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { RestaurantServiceService } from '../restaurant-service.service';
-
+import { Buffer } from 'buffer';
 @Component({
   selector: 'app-register-restaurant',
   templateUrl: './register-restaurant.component.html',
@@ -16,7 +16,8 @@ export class RegisterRestaurantComponent implements OnInit {
   image: any;
   restaurant_id:any;
 
-  constructor(private restaurantService:RestaurantServiceService,private router:Router) {
+  constructor(private restaurantService:RestaurantServiceService,private router:Router) 
+  {
     //fetching of states from api
     this.restaurantService.get_states().subscribe(
       (covid_data:any)=>{
@@ -31,28 +32,32 @@ export class RegisterRestaurantComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  selectImage(event:any)
-  {
-    if(event.target.files.length>0)
-    {
-      const file=event.target.file;
-      this.image=file;
+  file_pic: File | undefined;
+
+  // Create form data
+  formData = new FormData(); 
+      // On file Select
+      onChange(event:any) {
+        this.file_pic = <File>event.target.files[0];
+                
+  // Store form name as "file" with file data
+  this.formData.append("file",this.file_pic, this.file_pic.name);
+  console.log("form data-------------->",this.formData);
+        console.log("printing-----------file----------------",this.file_pic);
     }
-  }
+  
 
   //method which will be called after the form submittion
   addRestaurant(form:any)
   {
-    const newRestaurant=
-    {
-      name:form.restaurant_name,
-      opening_hours:form.restaurant_opening_hours,
-      address:form.restaurant_address+", "+form.restaurant_city+", "+this.restaurant_state+", "+form.restaurant_zipcode,
-      // image:form.restaurant_image
-    }
     try
     {
-      this.restaurantService.addRestaurant(newRestaurant)
+      // console.log(newRestaurant);
+      this.formData.append("name" , form.restaurant_name);
+      this.formData.append("opening_hours" , form.restaurant_name);
+      this.formData.append("address" , form.restaurant_address+", "+form.restaurant_city+", "+this.restaurant_state+", "+form.restaurant_zipcode);
+
+      this.restaurantService.addRestaurant(this.formData)
     .subscribe(
       resp=>{
           if(resp)
@@ -85,7 +90,4 @@ export class RegisterRestaurantComponent implements OnInit {
     }
    }
 }
-
-
-
 

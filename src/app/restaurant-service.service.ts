@@ -27,7 +27,7 @@ export class RestaurantServiceService {
   addRestaurant(newRestaurant:any)
   {
     console.log("service is called");
-    // return this.http.post('http://127.0.0.1:3003/restaurant',newRestaurant,{headers:this.headers});
+    
     return this.http.post('http://127.0.0.1:3003/restaurant',newRestaurant,{headers:this.headers});
   }
 
