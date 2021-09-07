@@ -1,9 +1,15 @@
 <div class="row m-5">
     <div class="col">
-        <div class="text-center mt-5">
+        <div class="text-center mt-5 d-flex justify-content-between">
             <button type="button" (click)="display_products()" class="btn btn-primary">
                 {{dispaly_productBTN_text}}
               </button>
+
+              <div class="ml-5">
+                <button type="button " class="btn btn-primary">
+                  <a class="text-white" style="text-decoration: none;" routerLink="/">Back to Home </a>
+                </button>
+              </div>
         </div>
         
         
@@ -20,18 +26,11 @@
                 </tr>
               </thead>
               <tbody>
-                <!-- <tr *ngFor="let product of prods; let i = index">
-                    <th scope="row">{{i+1}}</th>
-                    <td> {{product[i].name}}</td>
-                    <td>{{product[i].price}}</td>
-                    <td> {{product[i].category}}</td>
-                    <td >Restaurant Image</td>
-                  </tr> -->
-                <tr *ngFor="let product of register_products; let i = index">
+                <tr *ngFor="let product of prods ; let i = index">
                   <th scope="row">{{i+1}}</th>
-                  <td> {{product.products[i].name}}</td>
-                  <td>{{product.products[i].price}}</td>
-                  <td> {{product.products[i].category}}</td>
+                  <td> {{product.name}}</td>
+                  <td>{{product.price}}</td>
+                  <td> {{product.category}}</td>
                   <td >Restaurant Image</td>
                 </tr>
               </tbody>
@@ -42,7 +41,6 @@
 
 
     <div class="col">
-
 
         <div class="text-center mt-5">
             <button type="button" (click)="display_prod_registration()" class="btn btn-primary">

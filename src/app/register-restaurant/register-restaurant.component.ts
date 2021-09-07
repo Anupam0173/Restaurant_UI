@@ -15,6 +15,8 @@ export class RegisterRestaurantComponent implements OnInit {
   image: any;
 
   constructor(private restaurantService:RestaurantServiceService) {
+
+    //fetching of states from api
     this.restaurantService.get_states().subscribe(
       (covid_data:any)=>{
         let i=0;

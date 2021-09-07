@@ -12,11 +12,14 @@ export class RegisterProductComponent implements OnInit {
   r_id:any;
   constructor(private restaurantService:RestaurantServiceService,private router:ActivatedRoute) { }
   ngOnInit(): void {
+    //code for catching of id which is passed by other component
   this.router.params.subscribe(
     (params:Params)=>
     {
       this.r_id=params['id'];
     })
+    this.getProducts();
+
   }
 
   products=[];
@@ -58,6 +61,7 @@ export class RegisterProductComponent implements OnInit {
 
 
          this.registration_message=dataJson.msg;
+         this.getProducts();
          console.log("data saved successfully",resp);
        }else
        {
@@ -71,41 +75,19 @@ export class RegisterProductComponent implements OnInit {
     {
       console.log("there is an error");
     }
+    
   }
 
-
-
-  // this.show_prod_reg=!this.show_prod_reg;
-  // this.prod_registrationBTN_text=!this.show_prod_reg?"Show products registration form":"Hide products registration form";
-  // this.show_products
-//logic for show products of restaurants
-  show_products=true;
-  dispaly_productBTN_text="View registered products"
-  register_products:any;
-    
-  r_prods:any
-  display_products()
-  {
-    this.show_products=!this.show_products;
-    this.dispaly_productBTN_text=!this.show_products?"view Registered Products":"hide list"
- 
+getProducts()
+{
   try {
     this.restaurantService.getProducts(this.r_id)
     .subscribe(
-      products=>{
+      (products:any)=>{
        if(products)
        {
-        this.register_products=products;
-        // this.register_products=products.products;
-        // prods=this.register_products.products;
-        // for product in 
-        console.log("----------------------------",this.register_products.name);
-        // for (var product of this.r_prods) {
-        //   console.log(product)
-    
-        // }
-        console.log("------------------------",this.register_products.products);
-    
+         let temp=products;
+         this.prods=temp[0].products;
        }else
        {
          console.log("data not saved",products);
@@ -113,11 +95,24 @@ export class RegisterProductComponent implements OnInit {
 
       }
     );  
-
-
   } catch (error) {
     console.log("there is an error");
   }
+}
+
+
+//logic for show products of restaurants
+  show_products=true;
+  dispaly_productBTN_text="View registered products"
+  register_products:any;
+  prods:any
+  // r_prods:any
+  display_products()
+  {
+    this.show_products=!this.show_products;
+    this.dispaly_productBTN_text=!this.show_products?"view Registered Products":"hide list"
+    this.getProducts();
+
 }
 
 
