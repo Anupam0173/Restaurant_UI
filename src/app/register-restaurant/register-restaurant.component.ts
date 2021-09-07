@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { RestaurantServiceService } from '../restaurant-service.service';
 
 @Component({
@@ -8,14 +9,14 @@ import { RestaurantServiceService } from '../restaurant-service.service';
 })
 export class RegisterRestaurantComponent implements OnInit {
   restaurants=[];
-  registration_status=false;
+  registration_msg_status=false;
   registration_message:any;
   restaurant_state="";
   states:string[]=[];
   image: any;
+  restaurant_id:any;
 
-  constructor(private restaurantService:RestaurantServiceService) {
-
+  constructor(private restaurantService:RestaurantServiceService,private router:Router) {
     //fetching of states from api
     this.restaurantService.get_states().subscribe(
       (covid_data:any)=>{
@@ -29,6 +30,7 @@ export class RegisterRestaurantComponent implements OnInit {
 
   ngOnInit(): void {
   }
+
   selectImage(event:any)
   {
     if(event.target.files.length>0)
@@ -37,10 +39,10 @@ export class RegisterRestaurantComponent implements OnInit {
       this.image=file;
     }
   }
+
+  //method which will be called after the form submittion
   addRestaurant(form:any)
   {
-   
-
     const newRestaurant=
     {
       name:form.restaurant_name,
@@ -50,25 +52,23 @@ export class RegisterRestaurantComponent implements OnInit {
     }
     try
     {
-    
       this.restaurantService.addRestaurant(newRestaurant)
     .subscribe(
       resp=>{
-       if(resp)
-       {
-         this.registration_status=true;
-         let dataJson = JSON.parse(JSON.stringify(resp))
+          if(resp)
+          {
+            this.registration_msg_status=true;
+            let dataJson = JSON.parse(JSON.stringify(resp))
 
-
-         this.registration_message=dataJson.msg;
-         console.log("data saved successfully",resp);
-       }else
-       {
-         console.log("data not saved",resp);
-       }
-
-      }
-    );  
+            this.registration_message=dataJson.msg;
+            this.restaurant_id=dataJson.rest_id;
+            this.addProduct();   //for redirecting to add product page.
+            console.log("data saved successfully",resp);
+          }else
+          {
+            console.log("data not saved",resp);
+          }
+      });  
   }
     catch(e)
     {
@@ -76,4 +76,16 @@ export class RegisterRestaurantComponent implements OnInit {
     }
   }
 
+//this method redirects the user to register product page After successfull registeration.
+   addProduct()
+   {
+    if(this.registration_message=="Restaurant Saved Successfully")
+    {
+      this.router.navigate(['/add_product/'+this.restaurant_id]);
+    }
+   }
 }
+
+
+
+

@@ -10,16 +10,19 @@ import { RestaurantServiceService } from '../restaurant-service.service';
 })
 export class RegisterProductComponent implements OnInit {
   r_id:any;
+  restaurant_name:any;
+
   constructor(private restaurantService:RestaurantServiceService,private router:ActivatedRoute) { }
-  ngOnInit(): void {
+
+  ngOnInit(): void 
+  {
     //code for catching of id which is passed by other component
-  this.router.params.subscribe(
+    this.router.params.subscribe(
     (params:Params)=>
     {
       this.r_id=params['id'];
     })
     this.getProducts();
-
   }
 
   products=[];
@@ -50,27 +53,22 @@ export class RegisterProductComponent implements OnInit {
     }
     try
     {
-    
-      this.restaurantService.addProduct(newProduct,this.r_id)
-    .subscribe(
-      resp=>{
-       if(resp)
-       {
-         this.registration_status=true;
-         let dataJson = JSON.parse(JSON.stringify(resp))
-
-
-         this.registration_message=dataJson.msg;
-         this.getProducts();
-         console.log("data saved successfully",resp);
-       }else
-       {
-         console.log("data not saved",resp);
-       }
-
-      }
-    );  
-  }
+        this.restaurantService.addProduct(newProduct,this.r_id)
+      .subscribe(
+        resp=>{
+        if(resp)
+        {
+          this.registration_status=true;
+          let dataJson = JSON.parse(JSON.stringify(resp))
+          this.registration_message=dataJson.msg;
+          this.getProducts();
+          console.log("data saved successfully",resp);
+        }else
+        {
+          console.log("data not saved",resp);
+        }
+        });  
+    }
     catch(e)
     {
       console.log("there is an error");
@@ -78,6 +76,9 @@ export class RegisterProductComponent implements OnInit {
     
   }
 
+
+temp:any;
+// this method fetch all products list and it is displayed in tablular form
 getProducts()
 {
   try {
@@ -86,8 +87,10 @@ getProducts()
       (products:any)=>{
        if(products)
        {
-         let temp=products;
-         this.prods=temp[0].products;
+         this.temp=products;
+         console.log("name=",);
+         this.restaurant_name=products[0].name
+         this.prods=this.temp[0].products;
        }else
        {
          console.log("data not saved",products);
@@ -112,8 +115,36 @@ getProducts()
     this.show_products=!this.show_products;
     this.dispaly_productBTN_text=!this.show_products?"view Registered Products":"hide list"
     this.getProducts();
+  }
 
+
+//code for deletion of product
+deletion_message:any;
+delete_msg_status=false;
+delete_product(p_id:any)
+{ 
+  try {
+    this.restaurantService.deleteProduct(this.r_id,p_id)
+    .subscribe(
+      (resp:any)=>{
+        if(resp)
+        {
+          this.delete_msg_status=true;
+          let dataJson = JSON.parse(JSON.stringify(resp))
+          this.deletion_message=dataJson.message;
+          console.log("data saved successfully",resp);
+          this.getProducts();
+        }else
+        {
+          console.log("data not saved",resp);
+        }
+      }
+    );  
+  } catch (error) {
+    console.log("there is an error");
+  }
 }
+
 
 
 }

@@ -37,4 +37,8 @@ export class RestaurantServiceService {
     return this.http.post('http://127.0.0.1:3003/product/'+id,newProduct,{headers:this.headers});
   }
 
+  deleteProduct(r_id:any,p_id:any)
+  {
+    return this.http.delete('http://127.0.0.1:3003/product/delete/'+r_id+'/'+p_id);
+  }
 }
