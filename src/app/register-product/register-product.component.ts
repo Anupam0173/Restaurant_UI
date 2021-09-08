@@ -25,12 +25,26 @@ export class RegisterProductComponent implements OnInit {
     this.getProducts();
   }
 
+
   products=[];
   registration_status=false;
  
-  image: any;
+  // image: any;
  
-  
+  file_pic: File | undefined;
+
+  // Create form data
+  formData = new FormData(); 
+      // On file Select
+      onChange(event:any) {
+        this.file_pic = <File>event.target.files[0];
+                
+  // Store form name as "file" with file data
+  this.formData.append("file",this.file_pic, this.file_pic.name);
+  // console.log("form data-------------->",this.formData);
+  // console.log("printing-----------file----------------",this.file_pic);
+    }
+
   //code related to registration of products
   registration_message:any;
   prod_registrationBTN_text="Show products registration form";
@@ -42,18 +56,16 @@ export class RegisterProductComponent implements OnInit {
   }
 
   //on click of show registraion btn form
+  price:Number=0;
   addProduct(form:any)
   {
-    const newProduct=
-    {
-      name:form.product_name,
-      price:Number(form.product_price),
-      category:form.product_category,
-      // image:form.restaurant_image
-    }
     try
     {
-        this.restaurantService.addProduct(newProduct,this.r_id)
+      this.formData.append("name" , form.product_name);
+      this.formData.append("price" , form.product_price);
+      this.formData.append("category" , form.product_category);
+
+        this.restaurantService.addProduct(this.formData,this.r_id)
       .subscribe(
         resp=>{
         if(resp)
@@ -88,7 +100,6 @@ getProducts()
        if(products)
        {
          this.temp=products;
-         console.log("name=",);
          this.restaurant_name=products[0].name
          this.prods=this.temp[0].products;
        }else
@@ -109,7 +120,6 @@ getProducts()
   dispaly_productBTN_text="View registered products"
   register_products:any;
   prods:any
-  // r_prods:any
   display_products()
   {
     this.show_products=!this.show_products;
@@ -150,15 +160,3 @@ delete_product(p_id:any)
 }
 
 
-
-
-
-  // selectImage(event:any)
-  // {
-  //   if(event.target.files.length>0)
-  //   {
-  //     const file=event.target.file;
-  //     this.image=file;
-  //   }
-  // }
- 

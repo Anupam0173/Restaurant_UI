@@ -42,8 +42,8 @@ export class RegisterRestaurantComponent implements OnInit {
                 
   // Store form name as "file" with file data
   this.formData.append("file",this.file_pic, this.file_pic.name);
-  console.log("form data-------------->",this.formData);
-        console.log("printing-----------file----------------",this.file_pic);
+  // console.log("form data-------------->",this.formData);
+  // console.log("printing-----------file----------------",this.file_pic);
     }
   
 
@@ -68,7 +68,7 @@ export class RegisterRestaurantComponent implements OnInit {
             this.registration_message=dataJson.msg;
             this.restaurant_id=dataJson.rest_id;
             this.addProduct();   //for redirecting to add product page.
-            console.log("data saved successfully",resp);
+           // console.log("data saved successfully",resp);
           }else
           {
             console.log("data not saved",resp);
